@@ -44,7 +44,7 @@ function App() {
   return (
    <div className="flex flex-col items-center min-h-screen bg-gradient-to-br from-blue-400 to-blue-600 text-white p-6">
   <h1 className="text-4xl font-bold mb-2">Consulta el Clima</h1>
-  <p className="text-lg mb-6">Desarrollado por Jorge Patricio Santamaría Cherrez</p>
+  <p className="text-lg mb-6">Desarrollad por Jorge Patricio Santamaría Cherrez</p>
 
   <div className="flex gap-2 mb-6 w-full max-w-md">
     <input
