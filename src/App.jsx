@@ -42,23 +42,26 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-gradient-to-br from-blue-400 to-blue-600 text-white p-6">
-      <h1 className="text-4xl font-bold mb-6">Consulta el Clima</h1>
-      <div className="flex gap-2 mb-6 w-full max-w-md">
-        <input
-          type="text"
-          placeholder="Ingresa una ciudad"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          className="flex-1 p-3 rounded-lg text-black outline-none"
-        />
-        <button
-          onClick={getWeather}
-          className="bg-blue-800 px-4 py-2 rounded-lg hover:bg-blue-900 transition"
-        >
-          Buscar
-        </button>
-      </div>
+   <div className="flex flex-col items-center min-h-screen bg-gradient-to-br from-blue-400 to-blue-600 text-white p-6">
+  <h1 className="text-4xl font-bold mb-2">Consulta el Clima</h1>
+  <p className="text-lg mb-6">Desarrollado por Jorge Patricio Santamaría Cherrez</p>
+
+  <div className="flex gap-2 mb-6 w-full max-w-md">
+    <input
+      type="text"
+      placeholder="Ingresa una ciudad"
+      value={city}
+      onChange={(e) => setCity(e.target.value)}
+      className="flex-1 p-3 rounded-lg text-black outline-none"
+    />
+    <button
+      onClick={getWeather}
+      className="bg-blue-800 px-4 py-2 rounded-lg hover:bg-blue-900 transition"
+    >
+      Buscar
+    </button>
+  </div>
+</div>
 
       {error && <p className="text-red-300">{error}</p>}
 
