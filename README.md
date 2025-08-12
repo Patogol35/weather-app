@@ -60,7 +60,7 @@ http://localhost:5173
 
 🌐 Demo
 
-🔗 Ver aplicación en vivo
+https://weather-app-jorge-patricio-santamaria-s-projects.vercel.app/
 
 📸 Capturas de pantalla
 
