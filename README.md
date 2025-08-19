@@ -66,7 +66,7 @@ http://localhost:5173
 
 https://weather-app-jorge-patricio-santamaria-s-projects.vercel.app/
 
-
+---
 
 👨‍💻 Autor
 
