@@ -32,6 +32,7 @@ CSS
 
 1. Clona el repositorio
 
+git clone https://github.com/Patogol35/weather-app
 
 2. Instala las dependencias
 
@@ -47,7 +48,6 @@ Crea un archivo .env en la raíz del proyecto:
 VITE_API_KEY=tu_api_key_aquí
 
 
-
 4. Ejecuta la aplicación 
 
 npm run dev
@@ -55,12 +55,9 @@ npm run dev
 
 5. Abrir en el navegador
 
-Una vez ejecutado, abre en tu navegador la dirección que aparece en la consola, por ejemplo:
-
-http://localhost:5173
+Una vez ejecutado, abre en tu navegador esta dirección: http://localhost:5173
 
 ---
-
 
 🌐 Demo
 
