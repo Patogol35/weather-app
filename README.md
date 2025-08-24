@@ -57,9 +57,9 @@ VITE_API_KEY=tu_api_key_aquí
 npm run dev
 
 
-6. Abrir en el navegador
-
-Una vez ejecutado, abre en tu navegador esta dirección: http://localhost:5173
+6. Abre en el navegador:
+  
+http://localhost:5173
 
 ---
 
