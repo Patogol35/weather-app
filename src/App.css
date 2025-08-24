@@ -5,29 +5,42 @@
   box-sizing: border-box;
 }
 
-/* ==== VARIABLES DE ESTILO ==== */
+/* ==== VARIABLES ==== */
 :root {
-  --color-primary: #6366f1;   /* Indigo elegante */
+  --color-primary: #6366f1;         /* Indigo */
   --color-primary-dark: #4f46e5;
   --color-bg: #f9fafb;
-  --color-text: #1f2937;
+  --color-card: #ffffff;
+  --color-text: #111827;
   --color-muted: #6b7280;
-  --color-white: #ffffff;
-  --radius: 1rem;
+  --radius: 1.2rem;
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.15);
   --transition: all 0.3s ease;
+}
+
+/* ==== DARK MODE ==== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0f172a;
+    --color-card: #1e293b;
+    --color-text: #f1f5f9;
+    --color-muted: #94a3b8;
+    --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.7);
+  }
 }
 
 /* ==== BASE ==== */
 body {
-  font-family: 'Poppins', Arial, sans-serif;
-  background: linear-gradient(135deg, #eef2f7, #e0e7ff);
+  font-family: 'Poppins', system-ui, sans-serif;
+  background: var(--color-bg);
   color: var(--color-text);
   line-height: 1.7;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
+  transition: background 0.4s ease, color 0.4s ease;
 }
 
 #root {
@@ -40,18 +53,18 @@ body {
 /* ==== LOGO ==== */
 .logo {
   height: 6em;
-  margin: 1rem auto;
+  margin: 1.5rem auto;
   padding: 1.2em;
-  transition: transform 0.35s ease, filter 0.35s ease;
+  transition: transform 0.4s ease, filter 0.4s ease;
 }
 
 .logo:hover {
-  filter: drop-shadow(0 0 25px rgba(99, 102, 241, 0.5));
-  transform: scale(1.1) rotate(3deg);
+  filter: drop-shadow(0 0 28px rgba(99, 102, 241, 0.6));
+  transform: scale(1.1) rotate(2deg);
 }
 
 .logo.react:hover {
-  filter: drop-shadow(0 0 25px rgba(97, 218, 251, 0.55));
+  filter: drop-shadow(0 0 28px rgba(97, 218, 251, 0.6));
 }
 
 /* Animación */
@@ -62,72 +75,70 @@ body {
 
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 16s linear;
+    animation: logo-spin infinite 14s linear;
   }
 }
 
 /* ==== TARJETA ==== */
 .card {
-  background: var(--color-white);
-  padding: 2.2em;
-  margin: 1.8em auto;
+  background: var(--color-card);
+  padding: 2.5em;
+  margin: 2em auto;
   border-radius: var(--radius);
   box-shadow: var(--shadow-md);
-  max-width: 700px;
+  max-width: 720px;
   transition: var(--transition);
 }
 
 .card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-8px);
   box-shadow: var(--shadow-lg);
 }
 
 /* ==== BOTONES ==== */
 button, .btn {
   display: inline-block;
-  padding: 0.9em 1.8em;
-  border-radius: 0.7rem;
-  background: var(--color-primary);
-  color: var(--color-white);
+  padding: 1em 2em;
+  border-radius: 0.8rem;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: #fff;
   font-weight: 600;
   font-size: 1rem;
-  letter-spacing: 0.5px;
-  text-decoration: none;
-  transition: var(--transition);
+  letter-spacing: 0.4px;
   border: none;
   cursor: pointer;
+  transition: var(--transition);
   box-shadow: var(--shadow-sm);
 }
 
 button:hover, .btn:hover {
-  background: var(--color-primary-dark);
-  transform: translateY(-2px) scale(1.04);
+  transform: translateY(-3px) scale(1.04);
   box-shadow: var(--shadow-md);
 }
 
 button:active, .btn:active {
-  transform: scale(0.98);
+  transform: scale(0.97);
 }
 
 /* ==== TEXTO DE AYUDA ==== */
 .read-the-docs {
   color: var(--color-muted);
   font-size: 0.95rem;
-  margin-top: 1.2rem;
+  margin-top: 1.5rem;
 }
 
 /* ==== RESPONSIVIDAD ==== */
 @media (max-width: 768px) {
   #root {
-    padding: 1.2rem;
+    padding: 1.5rem;
   }
 
   .logo {
-    height: 4.8em;
+    height: 5em;
   }
 
   .card {
-    padding: 1.6em;
+    padding: 2em;
   }
 }
 
@@ -137,15 +148,15 @@ button:active, .btn:active {
   }
 
   .logo {
-    height: 4.2em;
+    height: 4.5em;
   }
 
   .card {
-    padding: 1.3em;
+    padding: 1.5em;
   }
 
   button, .btn {
     width: 100%;
-    padding: 0.85em;
+    padding: 1em;
   }
 }
