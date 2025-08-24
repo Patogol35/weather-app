@@ -16,9 +16,9 @@ Consume una API especializada en clima para mostrar datos actuales y pronóstico
 
 ⚡ Rápido y ligero: Construido con React y optimizado para un mejor rendimiento.
 
----
+--- 
 
-🛠️ Tecnologías utilizadas
+⚙️ Tecnologías utilizadas
 
 React (con Vite)
 
