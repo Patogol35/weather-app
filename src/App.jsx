@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./App.css";
 import axios from "axios";
 import WeatherCard from "./components/WeatherCard";
 import ForecastCard from "./components/ForecastCard";
