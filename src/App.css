@@ -168,16 +168,24 @@ h1 {
 
 /* ==== Ajuste especial para móviles en horizontal o pantallas bajas ==== */
 @media (max-width: 768px), (max-height: 500px) {
+  .app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;       /* centrado horizontal */
+    justify-content: flex-start; /* queda arriba; cambia a center si lo quieres verticalmente centrado */
+    padding: 1rem;
+  }
+
   .search {
     flex-direction: column;
-    align-items: center;   /* centramos los hijos */
-    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 400px; /* límite para que no ocupe todo */
   }
 
   .search input,
   .search button {
-    width: 90%;            /* ocupa el 90% del ancho */
-    max-width: 320px;      /* límite para que no crezca demasiado */
-    margin: 0.3rem 0;      /* espacio entre input y botón */
+    width: 100%;
+    margin: 0.3rem 0;
   }
 }
