@@ -1,19 +1,35 @@
-/* ==== RESET BÁSICO ==== */
+/* ==== RESET MODERNO ==== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* ==== ESTILOS GENERALES ==== */
-body {
-  font-family: 'Poppins', Arial, sans-serif;
-  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-  color: #222;
-  line-height: 1.6;
+/* ==== VARIABLES DE ESTILO ==== */
+:root {
+  --color-primary: #6366f1;   /* Indigo elegante */
+  --color-primary-dark: #4f46e5;
+  --color-bg: #f9fafb;
+  --color-text: #1f2937;
+  --color-muted: #6b7280;
+  --color-white: #ffffff;
+  --radius: 1rem;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+  --transition: all 0.3s ease;
 }
 
-/* ==== CONTENEDOR PRINCIPAL ==== */
+/* ==== BASE ==== */
+body {
+  font-family: 'Poppins', Arial, sans-serif;
+  background: linear-gradient(135deg, #eef2f7, #e0e7ff);
+  color: var(--color-text);
+  line-height: 1.7;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
 #root {
   max-width: 1200px;
   margin: auto;
@@ -24,20 +40,21 @@ body {
 /* ==== LOGO ==== */
 .logo {
   height: 6em;
-  padding: 1.5em;
-  transition: transform 0.3s ease, filter 0.3s ease;
+  margin: 1rem auto;
+  padding: 1.2em;
+  transition: transform 0.35s ease, filter 0.35s ease;
 }
 
 .logo:hover {
-  filter: drop-shadow(0 0 20px rgba(100, 108, 255, 0.5));
-  transform: scale(1.08);
+  filter: drop-shadow(0 0 25px rgba(99, 102, 241, 0.5));
+  transform: scale(1.1) rotate(3deg);
 }
 
 .logo.react:hover {
-  filter: drop-shadow(0 0 20px rgba(97, 218, 251, 0.5));
+  filter: drop-shadow(0 0 25px rgba(97, 218, 251, 0.55));
 }
 
-/* ==== ANIMACIÓN ==== */
+/* Animación */
 @keyframes logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -45,64 +62,72 @@ body {
 
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+    animation: logo-spin infinite 16s linear;
   }
 }
 
 /* ==== TARJETA ==== */
 .card {
-  background: white;
-  padding: 2em;
-  margin: 1.5em auto;
-  border-radius: 16px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  background: var(--color-white);
+  padding: 2.2em;
+  margin: 1.8em auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
   max-width: 700px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: var(--transition);
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
 }
 
 /* ==== BOTONES ==== */
 button, .btn {
   display: inline-block;
-  padding: 0.75em 1.5em;
-  border-radius: 8px;
-  background: #646cff;
-  color: white;
-  font-weight: bold;
+  padding: 0.9em 1.8em;
+  border-radius: 0.7rem;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
   text-decoration: none;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: var(--transition);
   border: none;
   cursor: pointer;
+  box-shadow: var(--shadow-sm);
 }
 
 button:hover, .btn:hover {
-  background: #4f54d6;
-  transform: scale(1.05);
+  background: var(--color-primary-dark);
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: var(--shadow-md);
+}
+
+button:active, .btn:active {
+  transform: scale(0.98);
 }
 
 /* ==== TEXTO DE AYUDA ==== */
 .read-the-docs {
-  color: #555;
-  font-size: 1rem;
-  margin-top: 1rem;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  margin-top: 1.2rem;
 }
 
 /* ==== RESPONSIVIDAD ==== */
 @media (max-width: 768px) {
   #root {
-    padding: 1rem;
+    padding: 1.2rem;
   }
 
   .logo {
-    height: 4.5em;
+    height: 4.8em;
   }
 
   .card {
-    padding: 1.5em;
+    padding: 1.6em;
   }
 }
 
@@ -112,10 +137,15 @@ button:hover, .btn:hover {
   }
 
   .logo {
-    height: 4em;
+    height: 4.2em;
   }
 
   .card {
-    padding: 1.2em;
+    padding: 1.3em;
+  }
+
+  button, .btn {
+    width: 100%;
+    padding: 0.85em;
   }
 }
