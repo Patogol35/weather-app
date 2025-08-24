@@ -28,7 +28,7 @@ CSS
 
 ---
 
-📦 Instalación y uso
+📦 Instalación y ejecución 
 
 1. Clona el repositorio
 
