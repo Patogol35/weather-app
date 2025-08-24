@@ -7,14 +7,14 @@ Consume una API especializada en clima para mostrar datos actuales y pronóstico
 
 ✨ Funcionalidades
 
-🌎 Búsqueda por ciudad: Consulta el clima en cualquier parte del mundo.
+- Búsqueda por ciudad: Consulta el clima en cualquier parte del mundo.
 
-📍 Datos en tiempo real: Temperatura, humedad, velocidad del viento, entre otros.
+- Datos en tiempo real: Temperatura, humedad, velocidad del viento, entre otros.
 
-📅 Pronóstico: Información actualizada del clima.
+- Pronóstico: Información actualizada del clima.
 
 
-⚡ Rápido y ligero: Construido con React y optimizado para un mejor rendimiento.
+- Rápido y ligero: Construido con React y optimizado para un mejor rendimiento.
 
 --- 
 
