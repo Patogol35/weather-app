@@ -34,12 +34,16 @@ CSS
 
 git clone https://github.com/Patogol35/weather-app
 
-2. Instala las dependencias
+2. Ingresa a la carpeta del proyecto:
+
+cd weather-app
+
+3. Instala las dependencias
 
 npm install
 
 
-3. Configura la API Key
+4. Configura la API Key
 
 Regístrate en OpenWeather (o la API que uses).
 
@@ -48,12 +52,12 @@ Crea un archivo .env en la raíz del proyecto:
 VITE_API_KEY=tu_api_key_aquí
 
 
-4. Ejecuta la aplicación 
+5. Ejecuta la aplicación 
 
 npm run dev
 
 
-5. Abrir en el navegador
+6. Abrir en el navegador
 
 Una vez ejecutado, abre en tu navegador esta dirección: http://localhost:5173
 
