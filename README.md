@@ -5,7 +5,7 @@ Consume una API especializada en clima para mostrar datos actuales y pronóstico
 
 ---
 
-🚀 Características
+✨ Funcionalidades
 
 🌎 Búsqueda por ciudad: Consulta el clima en cualquier parte del mundo.
 
