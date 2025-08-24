@@ -30,7 +30,7 @@ CSS
 
 📦 Instalación y ejecución 
 
-1. Clona el repositorio
+1. Clona el repositorio:
 
 git clone https://github.com/Patogol35/weather-app
 
@@ -38,12 +38,12 @@ git clone https://github.com/Patogol35/weather-app
 
 cd weather-app
 
-3. Instala las dependencias
+3. Instala las dependencias:
 
 npm install
 
 
-4. Configura la API Key
+4. Configura la API Key:
 
 Regístrate en OpenWeather (o la API que uses).
 
@@ -52,7 +52,7 @@ Crea un archivo .env en la raíz del proyecto:
 VITE_API_KEY=tu_api_key_aquí
 
 
-5. Ejecuta la aplicación 
+5. Ejecuta el proyecto: 
 
 npm run dev
 
