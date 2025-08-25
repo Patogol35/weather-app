@@ -11,16 +11,15 @@ body, html {
 /* ==== Contenedor principal ==== */
 .app {
   display: flex;
-  flex-direction: column;   /* elementos en columna */
-  justify-content: center;  /* centra verticalmente */
-  align-items: center;      /* centra horizontalmente */
-  min-height: 100vh;        /* ocupa toda la pantalla */
+  flex-direction: column;   
+  justify-content: center;  /* centra vertical */
+  align-items: center;      /* centra horizontal */
+  min-height: 100vh;
   text-align: center;
   padding: 2rem;
-  max-width: 1100px;        /* límite en pantallas grandes */
-  margin: 0 auto;           /* centrado horizontal */
 }
 
+/* ==== Títulos ==== */
 h1 {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
@@ -75,7 +74,6 @@ h1 {
   backdrop-filter: blur(12px);
   border-radius: 20px;
   padding: 1.5rem;
-  margin: 1rem auto;
   color: #fff;
   text-align: center;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
@@ -129,11 +127,10 @@ h1 {
 /* ==== Grid del forecast ==== */
 .forecast-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, max-content));
   gap: 1rem;
   margin-top: 2rem;
-  width: 100%;
-  max-width: 1000px;
+  justify-content: center;  /* centra las tarjetas horizontalmente */
 }
 
 /* ==== Responsividad ==== */
@@ -160,7 +157,7 @@ h1 {
   }
 
   .forecast-grid {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(140px, max-content));
   }
 }
 
@@ -177,5 +174,9 @@ h1 {
     width: 90%;
     max-width: 320px;
     margin: 0.3rem 0;
+  }
+
+  .forecast-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, max-content));
   }
 }
