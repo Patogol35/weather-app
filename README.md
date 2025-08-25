@@ -7,6 +7,8 @@ Consume una API especializada en clima para mostrar datos actuales y pronóstico
 
 Ver la aplicación desplegada en Vercel:
 
+https://jorgepatriciosantamariacherrezweath.vercel.app/
+
 ---
 
 ✨ Funcionalidades
