@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import axios from "axios";
 import WeatherCard from "./components/WeatherCard";
@@ -39,6 +38,13 @@ function App() {
     }
   };
 
+  // Manejar tecla Enter
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      getWeather();
+    }
+  };
+
   return (
     <div className="app">
       <h1>Consulta el Clima</h1>
@@ -50,6 +56,7 @@ function App() {
           placeholder="Ingresa una ciudad..."
           value={city}
           onChange={(e) => setCity(e.target.value)}
+          onKeyDown={handleKeyDown}   // 👈 aquí añadimos la función
         />
         <button onClick={getWeather}>Buscar</button>
       </div>
