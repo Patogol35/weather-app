@@ -1,20 +1,23 @@
 /* ==== Fondo general ==== */
-body, html {
+html, body, #root {
   margin: 0;
   padding: 0;
+  height: 100%;
+  width: 100%;
   font-family: "Segoe UI", Roboto, sans-serif;
   background: linear-gradient(135deg, #1e3c72, #2a5298);
   color: white;
-  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 /* ==== Contenedor principal ==== */
 .app {
   display: flex;
-  flex-direction: column;   
-  justify-content: center;  /* centra vertical */
-  align-items: center;      /* centra horizontal */
+  flex-direction: column;
+  justify-content: center;   /* centra vertical */
+  align-items: center;       /* centra horizontal */
   min-height: 100vh;
+  width: 100%;               /* ocupa todo el ancho */
   text-align: center;
   padding: 2rem;
 }
@@ -33,9 +36,11 @@ h1 {
 /* ==== Buscador ==== */
 .search {
   display: flex;
-  justify-content: center;
+  justify-content: center;   /* centra horizontalmente los hijos */
+  align-items: center;
   gap: 0.5rem;
   margin-bottom: 1.5rem;
+  width: 100%;               /* ocupa todo el ancho */
 }
 
 .search input {
@@ -45,6 +50,7 @@ h1 {
   outline: none;
   font-size: 1rem;
   width: 250px;
+  max-width: 320px;
 }
 
 .search button {
@@ -79,6 +85,7 @@ h1 {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   max-width: 280px;
+  margin: 0.5rem;
 }
 
 .card:hover {
@@ -130,7 +137,8 @@ h1 {
   grid-template-columns: repeat(auto-fit, minmax(160px, max-content));
   gap: 1rem;
   margin-top: 2rem;
-  justify-content: center;  /* centra las tarjetas horizontalmente */
+  justify-content: center;  /* centra horizontalmente */
+  width: 100%;              /* ocupa todo el ancho disponible */
 }
 
 /* ==== Responsividad ==== */
@@ -143,6 +151,10 @@ h1 {
 
   .card {
     max-width: 90%;
+  }
+
+  .search input {
+    width: 80%;
   }
 }
 
@@ -161,7 +173,7 @@ h1 {
   }
 }
 
-/* Ajuste especial para móviles en horizontal o pantallas bajas */
+/* Ajuste para móviles en horizontal o pantallas bajas */
 @media (max-width: 768px), (max-height: 500px) {
   .search {
     flex-direction: column;
