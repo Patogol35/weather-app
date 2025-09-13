@@ -67,11 +67,6 @@ npm run dev
   
 http://localhost:5173
 
----
-
-🌐 Demo
-
-https://weather-app-jorge-patricio-santamaria-s-projects.vercel.app/
 
 ---
 
