@@ -12,13 +12,16 @@ import {
 } from "@mui/material";
 import { Brightness4, Brightness7, Search } from "@mui/icons-material";
 import "./App.css";
+
 const API_KEY = import.meta.env.VITE_API_KEY;
+
 function App() {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState([]);
   const [error, setError] = useState("");
   const [darkMode, setDarkMode] = useState(false);
+
   const getWeather = async () => {
     if (!city) return;
     try {
@@ -26,6 +29,7 @@ function App() {
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&lang=es`
       );
       setWeather(current.data);
+
       const forecastRes = await axios.get(
         `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=metric&lang=es`
       );
@@ -40,11 +44,13 @@ function App() {
       setForecast([]);
     }
   };
+
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       getWeather();
     }
   };
+
   const theme = createTheme({
     palette: {
       mode: darkMode ? "dark" : "light",
@@ -56,6 +62,7 @@ function App() {
       }),
     },
   });
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -70,37 +77,22 @@ function App() {
           transition: "all 0.4s ease",
         }}
       >
-        {/* Header con título y botón modo oscuro */}
+        {/* Header con título */}
         <div
           style={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "flex-start",
             alignItems: "center",
             gap: "1rem",
           }}
         >
           <h1>Consulta el Clima</h1>
-          <IconButton
-            onClick={() => setDarkMode(!darkMode)}
-            sx={{
-              backgroundColor: darkMode ? "#333" : "#ffffff",
-              color: darkMode ? "#f5f5f5" : "#333",
-              boxShadow: darkMode
-                ? "0 0 6px rgba(0,0,0,0.4)"
-                : "0 2px 6px rgba(0,0,0,0.2)",
-              "&:hover": {
-                backgroundColor: darkMode ? "#444" : "#f5f5f5",
-              },
-              borderRadius: "50%",
-              transition: "all 0.3s ease",
-            }}
-          >
-            {darkMode ? <Brightness7 /> : <Brightness4 />}
-          </IconButton>
         </div>
+
         <p className="subtitle">
           Desarrollado por Jorge Patricio Santamaría Cherrez
         </p>
+
         {/* Buscador con botón MUI */}
         <div className="search" style={{ display: "flex", gap: "8px" }}>
           <input
@@ -124,7 +116,9 @@ function App() {
             Buscar
           </Button>
         </div>
+
         {error && <p className="error">{error}</p>}
+
         {weather && (
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -134,6 +128,7 @@ function App() {
             <WeatherCard weather={weather} />
           </motion.div>
         )}
+
         {forecast.length > 0 && (
           <motion.div
             className="forecast-grid"
@@ -146,8 +141,35 @@ function App() {
             ))}
           </motion.div>
         )}
+
+        {/* Botón flotante modo oscuro/claro */}
+        <IconButton
+          onClick={() => setDarkMode(!darkMode)}
+          color="inherit"
+          sx={{
+            position: "fixed",
+            top: 16,
+            right: 16,
+            width: 40,
+            height: 40,
+            borderRadius: "50%",
+            backgroundColor: darkMode ? "#333" : "#fff",
+            color: darkMode ? "#f5f5f5" : "#333",
+            boxShadow: darkMode
+              ? "0 0 6px rgba(0,0,0,0.4)"
+              : "0 2px 6px rgba(0,0,0,0.2)",
+            "&:hover": {
+              backgroundColor: darkMode ? "#444" : "#f0f0f0",
+            },
+            zIndex: 1000,
+            transition: "all 0.3s ease",
+          }}
+        >
+          {darkMode ? <Brightness7 /> : <Brightness4 />}
+        </IconButton>
       </div>
     </ThemeProvider>
   );
 }
+
 export default App;
