@@ -1,130 +1,54 @@
 import { useState } from "react";
-import axios from "axios";
+import { ThemeProvider, createTheme, CssBaseline, Button, IconButton } from "@mui/material";
+import { Brightness4, Brightness7, Search } from "@mui/icons-material";
+import { motion } from "framer-motion";
+import useWeather from "./hooks/useWeather";
 import WeatherCard from "./components/WeatherCard";
 import ForecastCard from "./components/ForecastCard";
-import { motion } from "framer-motion";
-import {
-  ThemeProvider,
-  createTheme,
-  CssBaseline,
-  IconButton,
-  Button,
-} from "@mui/material";
-import { Brightness4, Brightness7, Search } from "@mui/icons-material";
 import "./App.css";
 
-const API_KEY = import.meta.env.VITE_API_KEY;
-
-function App() {
+export default function App() {
   const [city, setCity] = useState("");
-  const [weather, setWeather] = useState(null);
-  const [forecast, setForecast] = useState([]);
-  const [error, setError] = useState("");
   const [darkMode, setDarkMode] = useState(false);
-
-  const getWeather = async () => {
-    if (!city) return;
-    try {
-      const current = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&lang=es`
-      );
-      setWeather(current.data);
-
-      const forecastRes = await axios.get(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=metric&lang=es`
-      );
-      const dailyForecast = forecastRes.data.list.filter((item) =>
-        item.dt_txt.includes("12:00:00")
-      );
-      setForecast(dailyForecast);
-      setError("");
-    } catch (err) {
-      setError("Ciudad no encontrada ❌");
-      setWeather(null);
-      setForecast([]);
-    }
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      getWeather();
-    }
-  };
+  const { weather, forecast, loading, error, fetchWeather } = useWeather();
 
   const theme = createTheme({
-    palette: {
-      mode: darkMode ? "dark" : "light",
-      ...(darkMode && {
-        background: {
-          default: "#121212",
-          paper: "#1e1e1e",
-        },
-      }),
-    },
+    palette: { mode: darkMode ? "dark" : "light" },
   });
+
+  const handleSearch = () => fetchWeather(city);
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <div
-        className="app"
-        style={{
-          minHeight: "100vh",
-          backgroundColor: darkMode
-            ? theme.palette.background.default
-            : undefined,
-          color: darkMode ? theme.palette.text.primary : undefined,
-          transition: "all 0.4s ease",
-        }}
-      >
-        {/* Header con título */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-start",
-            alignItems: "center",
-            gap: "1rem",
-          }}
-        >
+      <div className="app" style={{ minHeight: "100vh", transition: "0.4s" }}>
+        <header style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
           <h1>Consulta el Clima</h1>
-        </div>
+        </header>
+        <p className="subtitle">Desarrollado por Jorge Patricio Santamaría Cherrez</p>
 
-        <p className="subtitle">
-          Desarrollado por Jorge Patricio Santamaría Cherrez
-        </p>
-
-        {/* Buscador con botón MUI */}
-        <div className="search" style={{ display: "flex", gap: "8px" }}>
+        <div className="search">
           <input
             type="text"
             placeholder="Ingresa una ciudad..."
             value={city}
             onChange={(e) => setCity(e.target.value)}
-            onKeyDown={handleKeyDown}
+            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
           />
           <Button
             variant="contained"
-            color="primary"
-            onClick={getWeather}
             startIcon={<Search />}
-            sx={{
-              textTransform: "none",
-              fontWeight: "bold",
-              borderRadius: "8px",
-            }}
+            onClick={handleSearch}
+            disabled={loading}
           >
-            Buscar
+            {loading ? "Buscando..." : "Buscar"}
           </Button>
         </div>
 
         {error && <p className="error">{error}</p>}
 
         {weather && (
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <WeatherCard weather={weather} />
           </motion.div>
         )}
@@ -134,35 +58,20 @@ function App() {
             className="forecast-grid"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
           >
-            {forecast.map((item, index) => (
-              <ForecastCard key={index} data={item} />
-            ))}
+            {forecast.map((f, i) => <ForecastCard key={i} data={f} />)}
           </motion.div>
         )}
 
-        {/* Botón flotante modo oscuro/claro */}
         <IconButton
           onClick={() => setDarkMode(!darkMode)}
-          color="inherit"
           sx={{
             position: "fixed",
             top: 16,
             right: 16,
-            width: 40,
-            height: 40,
-            borderRadius: "50%",
-            backgroundColor: darkMode ? "#333" : "#fff",
+            bgcolor: darkMode ? "#333" : "#fff",
             color: darkMode ? "#f5f5f5" : "#333",
-            boxShadow: darkMode
-              ? "0 0 6px rgba(0,0,0,0.4)"
-              : "0 2px 6px rgba(0,0,0,0.2)",
-            "&:hover": {
-              backgroundColor: darkMode ? "#444" : "#f0f0f0",
-            },
-            zIndex: 1000,
-            transition: "all 0.3s ease",
+            "&:hover": { bgcolor: darkMode ? "#444" : "#f0f0f0" },
           }}
         >
           {darkMode ? <Brightness7 /> : <Brightness4 />}
@@ -171,5 +80,3 @@ function App() {
     </ThemeProvider>
   );
 }
-
-export default App;
