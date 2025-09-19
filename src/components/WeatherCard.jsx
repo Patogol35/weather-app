@@ -1,21 +1,18 @@
-function WeatherCard({ weather }) {
+export default function WeatherCard({ weather }) {
+  if (!weather) return null;
+  const { name, sys, main, weather: w, wind } = weather;
+  const icon = w[0].icon;
+
   return (
     <div className="card">
-      <h2>
-        {weather.name}, {weather.sys.country}
-      </h2>
-      <img
-        src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-        alt="icon"
-      />
-      <p className="temp">{Math.round(weather.main.temp)}°C</p>
-      <p className="desc">{weather.weather[0].description}</p>
+      <h2>{name}, {sys.country}</h2>
+      <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`} alt={w[0].description} />
+      <p className="temp">{Math.round(main.temp)}°C</p>
+      <p className="desc">{w[0].description}</p>
       <div className="extra">
-        <p>💧 Humedad: {weather.main.humidity}%</p>
-        <p>🌬️ Viento: {weather.wind.speed} m/s</p>
+        <p>💧 Humedad: {main.humidity}%</p>
+        <p>🌬️ Viento: {wind.speed} m/s</p>
       </div>
     </div>
   );
 }
-
-export default WeatherCard;
