@@ -1,7 +1,7 @@
-import { useState } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
 import WeatherCard from "./components/WeatherCard";
 import ForecastCard from "./components/ForecastCard";
+import useWeather from "./hooks/useWeather";
 import { motion } from "framer-motion";
 import {
   ThemeProvider,
@@ -13,40 +13,27 @@ import {
 import { Brightness4, Brightness7, Search } from "@mui/icons-material";
 import "./App.css";
 
-const API_KEY = import.meta.env.VITE_API_KEY;
-
 function App() {
   const [city, setCity] = useState("");
-  const [weather, setWeather] = useState(null);
-  const [forecast, setForecast] = useState([]);
-  const [error, setError] = useState("");
   const [darkMode, setDarkMode] = useState(false);
+  const { weather, forecast, loading, error, fetchWeather } = useWeather();
 
-  const getWeather = async () => {
-    if (!city) return;
-    try {
-      const current = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&lang=es`
-      );
-      setWeather(current.data);
+  // Persistencia de modo oscuro
+  useEffect(() => {
+    const savedMode = localStorage.getItem("darkMode");
+    if (savedMode) setDarkMode(savedMode === "true");
+  }, []);
 
-      const forecastRes = await axios.get(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=metric&lang=es`
-      );
-      const dailyForecast = forecastRes.data.list.filter((item) =>
-        item.dt_txt.includes("12:00:00")
-      );
-      setForecast(dailyForecast);
-      setError("");
-    } catch (err) {
-      setError("Ciudad no encontrada ❌");
-      setWeather(null);
-      setForecast([]);
-    }
+  useEffect(() => {
+    localStorage.setItem("darkMode", darkMode);
+  }, [darkMode]);
+
+  const handleSearch = () => {
+    fetchWeather(city);
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") getWeather();
+    if (e.key === "Enter") handleSearch();
   };
 
   const theme = createTheme({
@@ -73,7 +60,7 @@ function App() {
           transition: "all 0.4s ease",
         }}
       >
-        {/* Contenedor del botón encima de todo */}
+        {/* Botón modo oscuro */}
         <div style={{ display: "flex", justifyContent: "flex-end", padding: "1rem 1rem 0 1rem" }}>
           <IconButton
             onClick={() => setDarkMode(!darkMode)}
@@ -89,7 +76,7 @@ function App() {
           </IconButton>
         </div>
 
-        {/* Header con título */}
+        {/* Header */}
         <div
           style={{
             display: "flex",
@@ -114,25 +101,30 @@ function App() {
             value={city}
             onChange={(e) => setCity(e.target.value)}
             onKeyDown={handleKeyDown}
+            autoFocus
           />
           <Button
             variant="contained"
             color="primary"
-            onClick={getWeather}
+            onClick={handleSearch}
             startIcon={<Search />}
+            disabled={loading}
             sx={{
               textTransform: "none",
               fontWeight: "bold",
               borderRadius: "8px",
             }}
           >
-            Buscar
+            {loading ? "Buscando..." : "Buscar"}
           </Button>
         </div>
 
+        {/* Mensajes */}
         {error && <p className="error" style={{ padding: "0 1rem" }}>{error}</p>}
+        {loading && <p style={{ padding: "0 1rem" }}>⏳ Cargando...</p>}
 
-        {weather && (
+        {/* Clima actual */}
+        {weather && !loading && (
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -142,7 +134,8 @@ function App() {
           </motion.div>
         )}
 
-        {forecast.length > 0 && (
+        {/* Pronóstico */}
+        {forecast.length > 0 && !loading && (
           <motion.div
             className="forecast-grid"
             initial={{ opacity: 0 }}
