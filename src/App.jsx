@@ -73,24 +73,36 @@ function App() {
           transition: "all 0.4s ease",
         }}
       >
-        {/* Header */}
-        <div
+        {/* Header con botón estático */}
+        <header
           style={{
             display: "flex",
-            justifyContent: "flex-start",
+            justifyContent: "space-between",
             alignItems: "center",
-            gap: "1rem",
+            padding: "1rem",
           }}
         >
           <h1>Consulta el Clima</h1>
-        </div>
+          <IconButton
+            onClick={() => setDarkMode(!darkMode)}
+            color="inherit"
+            disableRipple
+            sx={{
+              "&:hover": { backgroundColor: "transparent" },
+              "&:focus": { outline: "none" },
+              transition: "color 0.3s ease",
+            }}
+          >
+            {darkMode ? <Brightness7 /> : <Brightness4 />}
+          </IconButton>
+        </header>
 
-        <p className="subtitle">
+        <p className="subtitle" style={{ padding: "0 1rem" }}>
           Desarrollado por Jorge Patricio Santamaría Cherrez
         </p>
 
         {/* Buscador */}
-        <div className="search" style={{ display: "flex", gap: "8px" }}>
+        <div className="search" style={{ display: "flex", gap: "8px", padding: "0 1rem" }}>
           <input
             type="text"
             placeholder="Ingresa una ciudad..."
@@ -113,7 +125,7 @@ function App() {
           </Button>
         </div>
 
-        {error && <p className="error">{error}</p>}
+        {error && <p className="error" style={{ padding: "0 1rem" }}>{error}</p>}
 
         {weather && (
           <motion.div
@@ -137,23 +149,6 @@ function App() {
             ))}
           </motion.div>
         )}
-
-        {/* Botón modo oscuro limpio */}
-        <IconButton
-          onClick={() => setDarkMode(!darkMode)}
-          color="inherit"
-          disableRipple  // 🔹 quita efecto ripple
-          sx={{
-            position: "fixed",
-            top: 16,
-            right: 16,
-            "&:hover": { backgroundColor: "transparent" }, // sin fondo al hover
-            "&:focus": { outline: "none" }, // quita el foco blanco
-            transition: "color 0.3s ease",
-          }}
-        >
-          {darkMode ? <Brightness7 /> : <Brightness4 />}
-        </IconButton>
       </div>
     </ThemeProvider>
   );
