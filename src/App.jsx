@@ -64,19 +64,19 @@ export default function App() {
         )}
 
         <IconButton
-          onClick={() => setDarkMode(!darkMode)}
-          sx={{
-            position: "fixed",
-            top: 16,
-            right: 16,
-            bgcolor: darkMode ? "#333" : "#fff",
-            color: darkMode ? "#f5f5f5" : "#333",
-            "&:hover": { bgcolor: darkMode ? "#444" : "#f0f0f0" },
-          }}
-        >
-          {darkMode ? <Brightness7 /> : <Brightness4 />}
-        </IconButton>
-      </div>
-    </ThemeProvider>
+  onClick={() => setDarkMode(!darkMode)}
+  sx={{
+    position: "fixed",
+    top: 16,
+    right: 16,
+    color: darkMode ? "#f5f5f5" : "#333",  // solo color del ícono
+    "&:hover": {
+      backgroundColor: "transparent",     // sin fondo también al hover
+    },
+    transition: "color 0.3s ease",
+  }}
+>
+  {darkMode ? <Brightness7 /> : <Brightness4 />}
+</IconButton>
   );
 }
