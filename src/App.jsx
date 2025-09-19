@@ -1,4 +1,4 @@
-      import { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import WeatherCard from "./components/WeatherCard";
 import ForecastCard from "./components/ForecastCard";
@@ -73,6 +73,7 @@ function App() {
           transition: "all 0.4s ease",
         }}
       >
+        {/* Header */}
         <div
           style={{
             display: "flex",
@@ -88,6 +89,7 @@ function App() {
           Desarrollado por Jorge Patricio Santamaría Cherrez
         </p>
 
+        {/* Buscador */}
         <div className="search" style={{ display: "flex", gap: "8px" }}>
           <input
             type="text"
@@ -136,15 +138,17 @@ function App() {
           </motion.div>
         )}
 
-        {/* Botón modo oscuro sin fondo */}
+        {/* Botón modo oscuro limpio */}
         <IconButton
           onClick={() => setDarkMode(!darkMode)}
-          color="inherit" // icono hereda color del tema
+          color="inherit"
+          disableRipple  // 🔹 quita efecto ripple
           sx={{
             position: "fixed",
             top: 16,
             right: 16,
-            "&:hover": { backgroundColor: "transparent" }, // sin fondo al pasar mouse
+            "&:hover": { backgroundColor: "transparent" }, // sin fondo al hover
+            "&:focus": { outline: "none" }, // quita el foco blanco
             transition: "color 0.3s ease",
           }}
         >
