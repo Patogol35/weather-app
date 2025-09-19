@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-  ThemeProvider,
-  createTheme,
-  CssBaseline,
-  Button,
-  IconButton,
-} from "@mui/material";
+import { ThemeProvider, createTheme, CssBaseline, Button, IconButton } from "@mui/material";
 import { Brightness4, Brightness7, Search } from "@mui/icons-material";
 import { motion } from "framer-motion";
 import useWeather from "./hooks/useWeather";
@@ -28,16 +22,11 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className="app" style={{ minHeight: "100vh", transition: "0.4s" }}>
-        {/* Header */}
         <header style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
           <h1>Consulta el Clima</h1>
         </header>
+        <p className="subtitle">Desarrollado por Jorge Patricio Santamaría Cherrez</p>
 
-        <p className="subtitle">
-          Desarrollado por Jorge Patricio Santamaría Cherrez
-        </p>
-
-        {/* Buscador */}
         <div className="search">
           <input
             type="text"
@@ -70,24 +59,19 @@ export default function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            {forecast.map((f, i) => (
-              <ForecastCard key={i} data={f} />
-            ))}
+            {forecast.map((f, i) => <ForecastCard key={i} data={f} />)}
           </motion.div>
         )}
 
-        {/* Botón modo oscuro sin fondo */}
         <IconButton
           onClick={() => setDarkMode(!darkMode)}
           sx={{
             position: "fixed",
             top: 16,
             right: 16,
-            color: darkMode ? "#f5f5f5" : "#333", // solo color del ícono
-            "&:hover": {
-              backgroundColor: "transparent", // sin fondo al hover
-            },
-            transition: "color 0.3s ease",
+            bgcolor: darkMode ? "#333" : "#fff",
+            color: darkMode ? "#f5f5f5" : "#333",
+            "&:hover": { bgcolor: darkMode ? "#444" : "#f0f0f0" },
           }}
         >
           {darkMode ? <Brightness7 /> : <Brightness4 />}
