@@ -15,7 +15,10 @@ import "./App.css";
 
 function App() {
   const [city, setCity] = useState("");
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+  const savedMode = localStorage.getItem("darkMode");
+  return savedMode ? savedMode === "true" : false;
+});
   const { weather, forecast, loading, error, fetchWeather } = useWeather();
 
   // Persistencia de modo oscuro
