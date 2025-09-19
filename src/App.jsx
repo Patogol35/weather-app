@@ -73,19 +73,8 @@ function App() {
           transition: "all 0.4s ease",
         }}
       >
-        {/* Header con título */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-start",
-            alignItems: "center",
-            gap: "1rem",
-            position: "relative" // para que el botón pueda estar relativo al header
-          }}
-        >
-          <h1>Consulta el Clima</h1>
-
-          {/* Botón modo oscuro estático al lado del título */}
+        {/* Contenedor del botón encima de todo */}
+        <div style={{ display: "flex", justifyContent: "flex-end", padding: "1rem 1rem 0 1rem" }}>
           <IconButton
             onClick={() => setDarkMode(!darkMode)}
             color="inherit"
@@ -93,7 +82,6 @@ function App() {
             sx={{
               "&:hover": { backgroundColor: "transparent" },
               "&:focus": { outline: "none" },
-              marginLeft: "auto", // empuja el botón a la derecha del header
               transition: "color 0.3s ease",
             }}
           >
@@ -101,12 +89,25 @@ function App() {
           </IconButton>
         </div>
 
-        <p className="subtitle">
+        {/* Header con título */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            gap: "1rem",
+            padding: "0 1rem",
+          }}
+        >
+          <h1>Consulta el Clima</h1>
+        </div>
+
+        <p className="subtitle" style={{ padding: "0 1rem" }}>
           Desarrollado por Jorge Patricio Santamaría Cherrez
         </p>
 
         {/* Buscador */}
-        <div className="search" style={{ display: "flex", gap: "8px" }}>
+        <div className="search" style={{ display: "flex", gap: "8px", padding: "0 1rem" }}>
           <input
             type="text"
             placeholder="Ingresa una ciudad..."
@@ -129,7 +130,7 @@ function App() {
           </Button>
         </div>
 
-        {error && <p className="error">{error}</p>}
+        {error && <p className="error" style={{ padding: "0 1rem" }}>{error}</p>}
 
         {weather && (
           <motion.div
