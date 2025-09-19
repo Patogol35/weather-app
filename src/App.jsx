@@ -73,16 +73,19 @@ function App() {
           transition: "all 0.4s ease",
         }}
       >
-        {/* Header con botón estático */}
-        <header
+        {/* Header con título */}
+        <div
           style={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "flex-start",
             alignItems: "center",
-            padding: "1rem",
+            gap: "1rem",
+            position: "relative" // para que el botón pueda estar relativo al header
           }}
         >
           <h1>Consulta el Clima</h1>
+
+          {/* Botón modo oscuro estático al lado del título */}
           <IconButton
             onClick={() => setDarkMode(!darkMode)}
             color="inherit"
@@ -90,19 +93,20 @@ function App() {
             sx={{
               "&:hover": { backgroundColor: "transparent" },
               "&:focus": { outline: "none" },
+              marginLeft: "auto", // empuja el botón a la derecha del header
               transition: "color 0.3s ease",
             }}
           >
             {darkMode ? <Brightness7 /> : <Brightness4 />}
           </IconButton>
-        </header>
+        </div>
 
-        <p className="subtitle" style={{ padding: "0 1rem" }}>
+        <p className="subtitle">
           Desarrollado por Jorge Patricio Santamaría Cherrez
         </p>
 
         {/* Buscador */}
-        <div className="search" style={{ display: "flex", gap: "8px", padding: "0 1rem" }}>
+        <div className="search" style={{ display: "flex", gap: "8px" }}>
           <input
             type="text"
             placeholder="Ingresa una ciudad..."
@@ -125,7 +129,7 @@ function App() {
           </Button>
         </div>
 
-        {error && <p className="error" style={{ padding: "0 1rem" }}>{error}</p>}
+        {error && <p className="error">{error}</p>}
 
         {weather && (
           <motion.div
