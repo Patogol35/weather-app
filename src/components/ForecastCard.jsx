@@ -3,7 +3,7 @@ export default function ForecastCard({ data }) {
   const day = date.toLocaleDateString("es-ES", { weekday: "long" });
 
   return (
-    <div className="card">
+    <article className="card">
       <h3 className="day">{day}</h3>
       <img
         src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
@@ -11,6 +11,6 @@ export default function ForecastCard({ data }) {
       />
       <p className="temp">{Math.round(data.main.temp)}°C</p>
       <p className="desc">{data.weather[0].description}</p>
-    </div>
+    </article>
   );
 }
