@@ -30,7 +30,7 @@ React (con Vite)
 
 JavaScript
 
-CSS
+Material UI (MUI)
 
 ---
 
