@@ -38,7 +38,7 @@ CSS
 
 ```bash
 
-1. Clona el repositorio:
+# 1. Clona el repositorio:
 
 git clone https://github.com/Patogol35/weather-app
 
