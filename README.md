@@ -68,8 +68,11 @@ Regístrate en OpenWeather (o la API que uses).
 
 Crea un archivo .env en la raíz del proyecto:
 
+```bash
+
 VITE_API_KEY=tu_api_key_aquí
 
+```
 
 5. Ejecuta el proyecto:
 
