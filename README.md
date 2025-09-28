@@ -46,11 +46,20 @@ git clone https://github.com/Patogol35/weather-app
 
 2. Ingresa a la carpeta del proyecto:
 
+```bash
+
 cd weather-app
+
+```
+
 
 3. Instala las dependencias:
 
+```bash
+
 npm install
+
+```
 
 
 4. Configura la API Key:
@@ -62,9 +71,13 @@ Crea un archivo .env en la raíz del proyecto:
 VITE_API_KEY=tu_api_key_aquí
 
 
-5. Ejecuta el proyecto: 
+5. Ejecuta el proyecto:
+
+```bash
 
 npm run dev
+
+```
 
 
 6. Abre en el navegador:
