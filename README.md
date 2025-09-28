@@ -36,11 +36,13 @@ CSS
 
 📦 Instalación y ejecución 
 
+1. Clona el repositorio:
+
 ```bash
 
-# 1. Clona el repositorio:
-
 git clone https://github.com/Patogol35/weather-app
+```
+
 
 2. Ingresa a la carpeta del proyecto:
 
