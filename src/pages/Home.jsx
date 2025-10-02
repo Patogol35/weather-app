@@ -1,7 +1,7 @@
 import { useState } from "react";
-import WeatherCard from "./components/WeatherCard";
-import ForecastCard from "./components/ForecastCard";
-import useWeather from "./hooks/useWeather";
+import WeatherCard from "../components/WeatherCard";
+import ForecastCard from "../components/ForecastCard";
+import useWeather from "../hooks/useWeather";
 import { motion } from "framer-motion";
 import { IconButton, Button } from "@mui/material";
 import { Brightness4, Brightness7, Search } from "@mui/icons-material";
