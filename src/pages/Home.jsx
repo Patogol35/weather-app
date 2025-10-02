@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { IconButton, Button } from "@mui/material";
-import { Brightness4, Brightness7, Search } from "@mui/icons-material";
-import { motion } from "framer-motion";
 import WeatherCard from "../components/WeatherCard";
 import ForecastCard from "../components/ForecastCard";
 import useWeather from "../hooks/useWeather";
-import styles from "./Home.styles"; // 👈 Importamos estilos
+import { motion } from "framer-motion";
+import { IconButton, Button } from "@mui/material";
+import { Brightness4, Brightness7, Search } from "@mui/icons-material";
+import { appStyles } from "../styles/appStyles";
 
-function Home({ darkMode, setDarkMode }) {
+function Home({ darkMode, setDarkMode, theme }) {
   const [city, setCity] = useState("");
   const { weather, forecast, loading, error, fetchWeather } = useWeather();
 
@@ -20,33 +20,30 @@ function Home({ darkMode, setDarkMode }) {
   };
 
   return (
-    <div
-      className="app"
-      style={darkMode ? styles.appDark : styles.appLight}
-    >
+    <div style={appStyles.root(darkMode, theme)}>
       {/* Botón modo oscuro */}
-      <div style={styles.darkModeButtonWrapper}>
+      <div style={{ display: "flex", justifyContent: "flex-end", padding: "1rem 1rem 0 1rem" }}>
         <IconButton
           onClick={() => setDarkMode(!darkMode)}
           color="inherit"
           disableRipple
-          sx={styles.iconButton}
+          sx={appStyles.darkModeBtn}
         >
           {darkMode ? <Brightness7 /> : <Brightness4 />}
         </IconButton>
       </div>
 
       {/* Header */}
-      <div style={styles.header}>
+      <div style={appStyles.header}>
         <h1>Consulta el Clima</h1>
       </div>
 
-      <p className="subtitle" style={styles.subtitle}>
+      <p style={appStyles.subtitle}>
         Desarrollado por Jorge Patricio Santamaría Cherrez
       </p>
 
       {/* Buscador */}
-      <div style={styles.search}>
+      <div style={appStyles.searchBox}>
         <input
           type="text"
           placeholder="Ingresa una ciudad..."
@@ -61,15 +58,15 @@ function Home({ darkMode, setDarkMode }) {
           onClick={handleSearch}
           startIcon={<Search />}
           disabled={loading}
-          sx={styles.searchButton}
+          sx={{ textTransform: "none", fontWeight: "bold", borderRadius: "8px" }}
         >
           {loading ? "Buscando..." : "Buscar"}
         </Button>
       </div>
 
       {/* Mensajes */}
-      {error && <p style={styles.error}>{error}</p>}
-      {loading && <p style={styles.loading}>⏳ Cargando...</p>}
+      {error && <p style={appStyles.error}>{error}</p>}
+      {loading && <p style={appStyles.loading}>⏳ Cargando...</p>}
 
       {/* Clima actual */}
       {weather && !loading && (
