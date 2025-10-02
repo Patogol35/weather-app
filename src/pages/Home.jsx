@@ -1,91 +1,157 @@
 // src/pages/Home.jsx
-import { useState } from "react";
-import WeatherCard from "../components/WeatherCard"; // 👈 asegúrate que este archivo exista
-import "../App.css"; // 👈 importa tu CSS global
+import { useState, useEffect } from "react";
+import WeatherCard from "../components/WeatherCard";
+import ForecastCard from "../components/ForecastCard";
+import useWeather from "../hooks/useWeather";
+import { motion } from "framer-motion";
+import {
+  ThemeProvider,
+  createTheme,
+  CssBaseline,
+  IconButton,
+  Button,
+} from "@mui/material";
+import { Brightness4, Brightness7, Search } from "@mui/icons-material";
+import "../App.css";
 
 function Home() {
   const [city, setCity] = useState("");
-  const [error, setError] = useState("");
-  const [weather, setWeather] = useState(null);
-  const [forecast, setForecast] = useState([]);
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedMode = localStorage.getItem("darkMode");
+    return savedMode ? savedMode === "true" : false;
+  });
 
-  const handleSearch = async () => {
-    if (!city) return;
-    try {
-      setError("");
-      setWeather(null);
-      setForecast([]);
+  const { weather, forecast, loading, error, fetchWeather } = useWeather();
 
-      // 🔹 API Key de OpenWeather
-      const API_KEY = "TU_API_KEY"; // 👈 pon tu API aquí
+  // 🔹 Persistencia de modo oscuro
+  useEffect(() => {
+    const savedMode = localStorage.getItem("darkMode");
+    if (savedMode) setDarkMode(savedMode === "true");
+  }, []);
 
-      // 🔹 Clima actual
-      const res = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=es&appid=${API_KEY}`
-      );
-      if (!res.ok) throw new Error("Ciudad no encontrada");
-      const data = await res.json();
-      setWeather(data);
+  useEffect(() => {
+    localStorage.setItem("darkMode", darkMode);
+  }, [darkMode]);
 
-      // 🔹 Pronóstico 5 días
-      const resForecast = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&lang=es&appid=${API_KEY}`
-      );
-      const forecastData = await resForecast.json();
-      setForecast(forecastData.list.filter((_, i) => i % 8 === 0)); // 1 por día
-    } catch (err) {
-      setError("No se pudo obtener el clima.");
-    }
+  const handleSearch = () => {
+    fetchWeather(city);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") handleSearch();
+  };
+
+  // 🔹 Tema dinámico (oscuro/claro)
+  const theme = createTheme({
+    palette: {
+      mode: darkMode ? "dark" : "light",
+      ...(darkMode && {
+        background: {
+          default: "#121212",
+          paper: "#1e1e1e",
+        },
+      }),
+    },
+  });
+
   return (
-    <div className="app">
-      <h1>🌤 Weather App</h1>
-      <p className="subtitle">Busca el clima de tu ciudad</p>
-
-      {/* 🔹 Buscador */}
-      <div className="search">
-        <input
-          type="text"
-          placeholder="Ej: Quito"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-        />
-        <button onClick={handleSearch}>Buscar</button>
-      </div>
-
-      {/* 🔹 Error */}
-      {error && <p className="error">{error}</p>}
-
-      {/* 🔹 Tarjeta principal del clima */}
-      {weather && (
-        <WeatherCard
-          city={weather.name}
-          temp={Math.round(weather.main.temp)}
-          desc={weather.weather[0].description}
-          icon={weather.weather[0].icon}
-          humidity={weather.main.humidity}
-          wind={weather.wind.speed}
-        />
-      )}
-
-      {/* 🔹 Pronóstico semanal */}
-      {forecast.length > 0 && (
-        <div className="forecast-grid">
-          {forecast.map((day, index) => (
-            <WeatherCard
-              key={index}
-              day={new Date(day.dt_txt).toLocaleDateString("es-ES", {
-                weekday: "long",
-              })}
-              temp={Math.round(day.main.temp)}
-              desc={day.weather[0].description}
-              icon={day.weather[0].icon}
-            />
-          ))}
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <div
+        className="app"
+        style={{
+          minHeight: "100vh",
+          backgroundColor: darkMode
+            ? theme.palette.background.default
+            : undefined,
+          color: darkMode ? theme.palette.text.primary : undefined,
+          transition: "all 0.4s ease",
+        }}
+      >
+        {/* 🔹 Botón modo oscuro */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            padding: "1rem 1rem 0 1rem",
+          }}
+        >
+          <IconButton
+            onClick={() => setDarkMode(!darkMode)}
+            color="inherit"
+            disableRipple
+            sx={{
+              "&:hover": { backgroundColor: "transparent" },
+              "&:focus": { outline: "none" },
+              transition: "color 0.3s ease",
+            }}
+          >
+            {darkMode ? <Brightness7 /> : <Brightness4 />}
+          </IconButton>
         </div>
-      )}
-    </div>
+
+        {/* 🔹 Header */}
+        <h1>Consulta el Clima</h1>
+        <p className="subtitle">
+          Desarrollado por Jorge Patricio Santamaría Cherrez
+        </p>
+
+        {/* 🔹 Buscador */}
+        <div className="search">
+          <input
+            type="text"
+            placeholder="Ingresa una ciudad..."
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            onKeyDown={handleKeyDown}
+            autoFocus
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSearch}
+            startIcon={<Search />}
+            disabled={loading}
+            sx={{
+              textTransform: "none",
+              fontWeight: "bold",
+              borderRadius: "8px",
+            }}
+          >
+            {loading ? "Buscando..." : "Buscar"}
+          </Button>
+        </div>
+
+        {/* 🔹 Mensajes */}
+        {error && <p className="error">{error}</p>}
+        {loading && <p>⏳ Cargando...</p>}
+
+        {/* 🔹 Clima actual */}
+        {weather && !loading && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <WeatherCard weather={weather} />
+          </motion.div>
+        )}
+
+        {/* 🔹 Pronóstico */}
+        {forecast.length > 0 && !loading && (
+          <motion.div
+            className="forecast-grid"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+          >
+            {forecast.map((item, index) => (
+              <ForecastCard key={index} data={item} />
+            ))}
+          </motion.div>
+        )}
+      </div>
+    </ThemeProvider>
   );
 }
 
