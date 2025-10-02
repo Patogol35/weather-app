@@ -1,6 +1,6 @@
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import { useState, useEffect } from "react";
-import Home from "./Home";
+import Home from "./pages/Home";   // 👈 Import corregido
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
