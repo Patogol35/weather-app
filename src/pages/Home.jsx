@@ -1,49 +1,52 @@
-import { useState } from "react";
-import WeatherCard from "../components/WeatherCard";
-import ForecastCard from "../components/ForecastCard";
-import useWeather from "../hooks/useWeather";
-import { motion } from "framer-motion";
 import { IconButton, Button } from "@mui/material";
 import { Brightness4, Brightness7, Search } from "@mui/icons-material";
-import { appStyles } from "../styles/appStyles";
+import { motion } from "framer-motion";
+import WeatherCard from "../components/WeatherCard";
+import ForecastCard from "../components/ForecastCard";
+import { styles } from "../styles/appStyles";
 
-function Home({ darkMode, setDarkMode, theme }) {
-  const [city, setCity] = useState("");
-  const { weather, forecast, loading, error, fetchWeather } = useWeather();
-
-  const handleSearch = () => {
-    fetchWeather(city);
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") handleSearch();
-  };
-
+function Home({
+  city,
+  setCity,
+  darkMode,
+  setDarkMode,
+  handleSearch,
+  handleKeyDown,
+  weather,
+  forecast,
+  loading,
+  error,
+  theme,
+}) {
   return (
-    <div style={appStyles.root(darkMode, theme)}>
+    <div
+      className="app"
+      style={{
+        ...styles.app,
+        backgroundColor: darkMode ? theme.palette.background.default : undefined,
+        color: darkMode ? theme.palette.text.primary : undefined,
+      }}
+    >
       {/* Botón modo oscuro */}
-      <div style={{ display: "flex", justifyContent: "flex-end", padding: "1rem 1rem 0 1rem" }}>
+      <div style={styles.headerRight}>
         <IconButton
           onClick={() => setDarkMode(!darkMode)}
           color="inherit"
           disableRipple
-          sx={appStyles.darkModeBtn}
+          sx={styles.iconButton}
         >
           {darkMode ? <Brightness7 /> : <Brightness4 />}
         </IconButton>
       </div>
 
       {/* Header */}
-      <div style={appStyles.header}>
+      <div style={styles.headerLeft}>
         <h1>Consulta el Clima</h1>
       </div>
-
-      <p style={appStyles.subtitle}>
-        Desarrollado por Jorge Patricio Santamaría Cherrez
-      </p>
+      <p style={styles.subtitle}>Desarrollado por Jorge Patricio Santamaría Cherrez</p>
 
       {/* Buscador */}
-      <div style={appStyles.searchBox}>
+      <div style={styles.search}>
         <input
           type="text"
           placeholder="Ingresa una ciudad..."
@@ -58,23 +61,19 @@ function Home({ darkMode, setDarkMode, theme }) {
           onClick={handleSearch}
           startIcon={<Search />}
           disabled={loading}
-          sx={{ textTransform: "none", fontWeight: "bold", borderRadius: "8px" }}
+          sx={styles.searchButton}
         >
           {loading ? "Buscando..." : "Buscar"}
         </Button>
       </div>
 
       {/* Mensajes */}
-      {error && <p style={appStyles.error}>{error}</p>}
-      {loading && <p style={appStyles.loading}>⏳ Cargando...</p>}
+      {error && <p style={styles.error}>{error}</p>}
+      {loading && <p style={{ padding: "0 1rem" }}>⏳ Cargando...</p>}
 
       {/* Clima actual */}
       {weather && !loading && (
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
           <WeatherCard weather={weather} />
         </motion.div>
       )}
