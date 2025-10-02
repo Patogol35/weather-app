@@ -1,4 +1,4 @@
-{ useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import WeatherCard from "./components/WeatherCard";
 import ForecastCard from "./components/ForecastCard";
 import useWeather from "./hooks/useWeather";
