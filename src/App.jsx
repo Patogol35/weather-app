@@ -116,7 +116,7 @@ padding: "0 1rem",
   </Button>          
 </div>      {/* Mensajes */}    
 {error && <p className="error" style={{ padding: "0 1rem" }}>{error}</p>}    
-{loading && <p style={{ padding: "0 1rem" }}>⏳ Cargando...</p>}  {/* Clima actual */}  
+{loading && <p style={{ padding: "0 1rem" }}> Cargando...</p>}  {/* Clima actual */}  
 {weather && !loading && (  
 <motion.div  
 initial={{ opacity: 0, y: 30 }}  
