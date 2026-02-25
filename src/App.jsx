@@ -109,7 +109,11 @@ padding: "0 1rem",
     sx={{          
       textTransform: "none",          
       fontWeight: "bold",          
-      borderRadius: "8px",          
+      borderRadius: "8px",     
+
+      color: "white",
+    "&.Mui-disabled": {
+      color: "white" }
     }}          
   >          
     {loading ? "Buscando..." : "Buscar"}          
