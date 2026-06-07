@@ -18,25 +18,9 @@ export default function useWeather() {
         api.get("/forecast", { params: { q: city } }),
       ]);
 
-      const grouped = {};
-
-forecastRes.data.list.forEach((item) => {
-  const day = item.dt_txt.split(" ")[0];
-
-  if (!grouped[day]) {
-    grouped[day] = {
-      dt_txt: item.dt_txt,
-      weather: item.weather,
-      min: item.main.temp,
-      max: item.main.temp,
-    };
-  }
-
-  grouped[day].min = Math.min(grouped[day].min, item.main.temp);
-  grouped[day].max = Math.max(grouped[day].max, item.main.temp);
-});
-
-const dailyForecast = Object.values(grouped);
+      const dailyForecast = forecastRes.data.list.filter((item) =>
+        item.dt_txt.includes("12:00:00")
+      );
 
       setWeather(current.data);
       setForecast(dailyForecast);
