@@ -1,16 +1,18 @@
-export default function ForecastCard({ data }) {
-  const date = new Date(data.dt_txt);
-  const day = date.toLocaleDateString("es-ES", { weekday: "long" });
-
+export default function ForecastCard({ day, minTemp, maxTemp, icon, description }) {
   return (
     <article className="card">
       <h3 className="day">{day}</h3>
+
       <img
-        src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
-        alt={data.weather[0].description}
+        src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
+        alt={description}
       />
-      <p className="temp">{Math.round(data.main.temp)}°C</p>
-      <p className="desc">{data.weather[0].description}</p>
+
+      <p className="temp">
+        {Math.round(maxTemp)}° / {Math.round(minTemp)}°
+      </p>
+
+      <p className="desc">{description}</p>
     </article>
   );
 }
